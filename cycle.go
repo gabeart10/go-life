@@ -39,11 +39,11 @@ func findAmountAround(x, y int, list lifeFormList, s *settings) (int, bool) {
 func cycle(s *settings, list lifeFormList) lifeFormList {
 	w, h := termbox.Size()
 	var toCreate = make([][2]int, 0)
-	doneChan := make(chan bool)
-	dataChan := make(chan [2]int)
+	dataChan := make(chan [2]int, w*h)
+	doneChan := make(chan bool, h)
 	amountDone := 0
 	for y := 0; y < h; y++ {
-		go func(done chan bool, data chan [2]int) {
+		go func(data chan [2]int, done chan bool) {
 			for x := 0; x < w; x++ {
 				amount, isALifeForm := findAmountAround(x, y, list, s)
 				if isALifeForm == true {
@@ -55,19 +55,16 @@ func cycle(s *settings, list lifeFormList) lifeFormList {
 						dataChan <- [2]int{x, y}
 					}
 				}
-
 			}
 			done <- true
-		}(doneChan, dataChan)
+		}(dataChan, doneChan)
 	}
-	select {
-	case <-doneChan:
-		amountDone++
-	case data := <-dataChan:
-		toCreate = append(toCreate, data)
-	default:
-		if amountDone == h {
-			break
+	for amountDone != h {
+		select {
+		case data := <-dataChan:
+			toCreate = append(toCreate, data)
+		case <-doneChan:
+			amountDone++
 		}
 	}
 	termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
