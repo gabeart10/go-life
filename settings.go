@@ -12,6 +12,6 @@ func newSettings(maxA, minA, minTC int, countB bool) *settings {
 		maxAround:   maxA,
 		minAround:   minA,
 		minToCreate: minTC,
-		countBorder: coundB,
+		countBorder: countB,
 	}
 }

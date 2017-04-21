@@ -2,11 +2,10 @@ package main
 
 import (
 	"errors"
-	"github.com/nsf/termbox-go"
 )
 
 const (
-	lifeFromSymbol rune = 'X'
+	lifeFormSymbol rune = 'X'
 )
 
 type lifeForm struct {
@@ -19,8 +18,13 @@ func newLifeForm(x, y int, list lifeFormList) *lifeForm {
 		x: x,
 		y: y,
 	}
-	list = append(list, tempLife)
-	return tempLife
+	for i := 0; i < len(list); i++ {
+		if list[i] == nil {
+			list[i] = tempLife
+			return tempLife
+		}
+	}
+	return nil
 }
 
 func (l *lifeForm) removeLifeForm(list lifeFormList) error {
