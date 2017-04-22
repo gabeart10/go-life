@@ -17,13 +17,11 @@ func main() {
 			}
 		}
 	}()
-	lifeList := make(lifeFormList, 5)
-	currSettings := newSettings(4, 2, 3, false)
-	for i := 0; i < 5; i++ {
-		newLifeForm(30, 20+i, lifeList)
-	}
+	lifeList := make(lifeFormList, 0)
+	currSettings := newSettings(4, 1, 3, false)
+	lifeList = mainCursor.placeLifeForms(lifeList)
 	for {
 		lifeList = cycle(currSettings, lifeList)
-		time.Sleep(300 * time.Millisecond)
+		time.Sleep(500 * time.Millisecond)
 	}
 }

@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	lifeFormSymbol rune = '🍆'
+	lifeFormSymbol rune = 'X'
 )
 
 type lifeForm struct {
@@ -13,18 +13,12 @@ type lifeForm struct {
 	y int
 }
 
-func newLifeForm(x, y int, list lifeFormList) *lifeForm {
+func newLifeForm(x, y int, list lifeFormList) lifeFormList {
 	tempLife := &lifeForm{
 		x: x,
 		y: y,
 	}
-	for i := 0; i < len(list); i++ {
-		if list[i] == nil {
-			list[i] = tempLife
-			return tempLife
-		}
-	}
-	return nil
+	return append(list, tempLife)
 }
 
 func (l *lifeForm) removeLifeForm(list lifeFormList) error {

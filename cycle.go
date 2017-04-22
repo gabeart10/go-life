@@ -47,11 +47,11 @@ func cycle(s *settings, list lifeFormList) lifeFormList {
 			for x := 0; x < w; x++ {
 				amount, isALifeForm := findAmountAround(x, y, list, s)
 				if isALifeForm == true {
-					if amount >= s.minAround && amount < s.maxAround {
+					if amount > s.minAround && amount < s.maxAround {
 						dataChan <- [2]int{x, y}
 					}
 				} else {
-					if amount >= s.minToCreate {
+					if amount == s.toCreate {
 						dataChan <- [2]int{x, y}
 					}
 				}
@@ -68,9 +68,9 @@ func cycle(s *settings, list lifeFormList) lifeFormList {
 		}
 	}
 	termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
-	tempList := make(lifeFormList, len(toCreate))
+	tempList := make(lifeFormList, 0)
 	for _, cord := range toCreate {
-		newLifeForm(cord[0], cord[1], tempList)
+		tempList = newLifeForm(cord[0], cord[1], tempList)
 		termbox.SetCell(cord[0], cord[1], lifeFormSymbol, termbox.ColorBlue, termbox.ColorDefault)
 	}
 	termbox.Flush()
