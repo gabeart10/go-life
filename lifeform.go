@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	lifeFormSymbol rune = 'X'
+	lifeFormSymbol rune = '🍆'
 )
 
 type lifeForm struct {

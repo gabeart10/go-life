@@ -17,9 +17,9 @@ func main() {
 			}
 		}
 	}()
-	lifeList := make(lifeFormList, 10)
+	lifeList := make(lifeFormList, 5)
 	currSettings := newSettings(4, 2, 3, false)
-	for i := 0; i < 10; i++ {
+	for i := 0; i < 5; i++ {
 		newLifeForm(30, 20+i, lifeList)
 	}
 	for {
