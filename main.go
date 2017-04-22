@@ -22,6 +22,6 @@ func main() {
 	lifeList = mainCursor.placeLifeForms(lifeList)
 	for {
 		lifeList = cycle(currSettings, lifeList)
-		time.Sleep(500 * time.Millisecond)
+		time.Sleep(250 * time.Millisecond)
 	}
 }
