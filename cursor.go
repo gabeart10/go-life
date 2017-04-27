@@ -48,7 +48,7 @@ func (c *cursor) placeLifeForms(list lifeFormList) lifeFormList {
 func (c *cursor) placeCursor(x, y int) bool {
 	buffer := termbox.CellBuffer()
 	w, h := termbox.Size()
-	if x < 0 || y < 0 || y > h || x > w {
+	if x < 0 || y < 0 || y >= h || x >= w {
 		return false
 	}
 	termbox.SetCell(c.x, c.y, buffer[c.x+(c.y*w)].Ch, buffer[c.x+(c.y*w)].Fg, termbox.ColorDefault)
