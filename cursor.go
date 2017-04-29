@@ -42,7 +42,6 @@ func (c *cursor) placeLifeForms(list lifeFormList) lifeFormList {
 			termbox.Flush()
 		}
 	}
-	return list
 }
 
 func (c *cursor) placeCursor(x, y int) bool {
